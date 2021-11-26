@@ -1,0 +1,86 @@
+version: "2.0"
+
+nlu:
+- intent: greet
+  examples: |
+   - hola
+   - holi
+   - holis
+   - holas
+   - buenos días
+   - buenos dias
+   - buenas tardes
+   - buenas noches
+   - hola buenos días
+   - buenas
+   - buen día
+   - que tal
+   - qué tal
+
+- intent: goodbye
+  examples: |
+    - hasta luego
+    - chau
+    - bye
+    - nos vemos 
+    - hasta pronto
+    - chao
+
+- intent: affirm
+  examples: |
+    - sí
+    - si
+    - correcto
+    - si claro
+    - afirmativo
+    - así es
+    - bien
+    - ok
+
+- intent: deny
+  examples: |
+    - no
+    - nop
+    - no lo creo
+    - mal
+    - incorrecto
+    - no realmente
+    - nope
+
+
+- intent: bot_challenge
+  examples: |
+    - eres humano?
+    - eres una persona?
+    - hablo con un bot?
+    - con quién hablo?
+
+- intent: thank
+  examples: |
+    - gracias
+    - te lo agradezco
+    - muchas gracias
+
+
+- intent: reservar
+  examples: |
+    - quiero reservar una cancha
+    - es para reservar
+    - es para hacer una reserva
+    - es para apartar una cancha 
+    - quiero reservar una cancha para el lunes
+    - quiero la cancha [F7](ref_cancha) para el martes
+    - quiero reservar una cancha
+    - quiero reservar para el miércoles
+    - me gustaria reservar la [F5](ref_cancha) para el domingo a las 2pm
+    - quiero reservar para las 11am
+    - quiero hacer una reserva a nombre de [Juan González](nombre_reserva)
+    - quiero apartar a nombre de [Felipe Gutierrez](nombre_reserva)
+    - quiero apartar la cancha [F5](ref_cancha) para más tarde
+
+
+- intent: informar_cancha
+  examples: |
+    - la [F5](ref_cancha)
+    - [F9](ref_cancha)
+

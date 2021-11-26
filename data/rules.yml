@@ -1,0 +1,55 @@
+version: "2.0"
+
+rules:
+
+- rule: despedida
+  steps:
+  - intent: goodbye
+  - action: utter_goodbye
+
+- rule: saludo
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: Say 'I am a bot' anytime the user challenges
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- rule: saludo 
+  steps:
+  - intent: greet
+  - action: utter_greet
+
+- rule: de nada
+  steps:
+  - intent: thank
+  - action: utter_denada
+
+- rule: Activar reserva formulario
+  steps:
+  - intent: reservar
+  - action: reserva_form
+  - active_loop: reserva_form
+
+- rule: Submit form
+  condition:
+# Condition that form is active.
+  - active_loop: reserva_form
+  steps:
+  - action: reserva_form
+  - active_loop: null
+# The action we want to run when the form is submitted.
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_confirminfo
+
+
+- rule: confirmar informacion
+  steps:
+  - action: utter_confirminfo
+  - intent: affirm
+  - action: utter_confirmreserva
+
+ 
