@@ -1,0 +1,87 @@
+Estructura de Calendario
+
+-	Hay 4 canchas lista_canchas =[F5, F6, F7, F9]
+-	Los horarios de atención son de 7am a 10pm todos los días, excepto el domingo donde es de 8 am a 8pm. Las reservas se hacen hasta una hora antes del cierre.
+-	Se puede reservar por una hora, únicamente desde la hora en punto.
+-   Se puede reservar en la semana actual o para la semana siguiente
+-	El usuario puede reservar directamente la cancha por su referencia F5, F7, etc
+-	El usuario puede reservar una cancha hasta con una hora de anticipación.
+Condiciones de entrada
+
+I. Sistema de Reservas
+
+A. Reservas
+
+librerias: datetime y otros
+
+-	Entradas
+     hf_inicio: inicio de la reserva
+        tipo: objeto datetime aware
+     hf_fin: final de la reserva
+        tipo: objeto datetime aware
+        si no se especifica, se hace reserva automática de 1 hora después de hf_inicio
+    ref_cancha: referencia de la cancha a reservar
+       tipo: string
+       debe estar en lista_canchas, ejemplo F5.
+    nombre_reserva: nombre completo de la persona a reservar
+       tipo: string
+    email: opcional
+    telefono: opcional
+
+-   Salidas
+    mensajes/códigos de error o confirmación posibles
+    - reservación exitosa
+        un codigo de reservación (para cancelaciones, corto posiblemente cuatro caracteres alfanuméricos).
+    - reservación no exitosa:
+        la cancha ya está reservada a esa hora
+        se intentó reservar fuera de horarios
+        se intentó reservar para una fecha no habilitada (solo permitir semana actual o siguiente)
+        la fecha es un festivo en colombia, los horarios son diferentes (opcional)
+
+
+B. Cancelación
+-  Entradas
+    codigo_reservación: codigo de reservación de la reserva
+
+   Salidas:
+   mensajes/códigos de error o confirmación
+   - cancelación exitosa
+   - cancelación no exitosa
+     código de reservación no encontrado
+     reservación es de una fecha pasada, no se puede cancelar
+
+- Almacenamiento:
+    Mantener registro de las reservas, cancha, inicio y final, momento en que se realizó la reservación, codigo de reservación
+    validación de calendario, conflictos de reservas
+
+II. Sistema de información calendario
+
+-	Entradas (todas opcionales)
+     hf_inicio: inicio de la reserva
+        tipo: objeto datetime aware
+     hf_fin: final de la reserva
+        tipo: objeto datetime aware
+        si no se especifica, se hace reserva automática de 1 hora después de hf_inicio
+    ref_cancha: referencia de la cancha a reservar
+       tipo: string
+       debe estar en lista_canchas, ejemplo F5.
+    codigo_reservación: codigo de reservación previa
+
+    Salidas o métodos:
+
+    Si no se especifica ninguno
+        Todos las fechas y horarios disponibles de la semana actual y la siguiente para todas las canchas
+        a partir del momento actual
+
+    Si se especifica hf_inicio:
+        Todas las canchas disponibles a esa hora
+        Todas las canchas disponibles dentro de un intervalo = 2 horas alrededor y sus horarios
+
+    Si se especifica ref_cancha y hf_inicio
+        Todos los horarios disponibles para ese día de ref_cancha, en un intervalo = 2 horas
+
+Observaciones:
+- probablemente existan proyectos open source que lidien con muchas de estas tareas
+- Se puede modificar estructura a conveniencia, siempre que se puedan realizar las mismas tareas
+- Evitar hard coding de horarios y referencias de canchas
+

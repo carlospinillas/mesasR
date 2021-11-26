@@ -1,0 +1,152 @@
+version: '2.0'
+config:
+  store_entities_as_slots: true
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+- greet:
+    use_entities: true
+- goodbye:
+    use_entities: true
+- affirm:
+    use_entities: true
+- deny:
+    use_entities: true
+- bot_challenge:
+    use_entities: true
+- reservar:
+    use_entities: true
+- informar_cancha:
+    use_entities: true
+- thank:
+    use_entities: true
+entities:
+- nombre_reserva
+- num_jugadores
+- ref_cancha
+- nombre_dia
+- numero_dia
+- hora
+- dia_relativo
+- ampm
+- time
+- time_reserva
+- time_aware
+- number
+slots:
+  nombre_reserva:
+    type: rasa.shared.core.slots.AnySlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  ref_cancha:
+    type: rasa.shared.core.slots.AnySlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  nombre_dia:
+    type: rasa.shared.core.slots.AnySlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  numero_dia:
+    type: rasa.shared.core.slots.AnySlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  time_reserva:
+    type: rasa.shared.core.slots.AnySlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  dia_relativo:
+    type: rasa.shared.core.slots.AnySlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  ampm:
+    type: rasa.shared.core.slots.AnySlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  time:
+    type: rasa.shared.core.slots.AnySlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  time_aware:
+    type: rasa.shared.core.slots.AnySlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  number:
+    type: rasa.shared.core.slots.AnySlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  fechatexto:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  PER:
+    type: rasa.shared.core.slots.AnySlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+  requested_slot:
+    type: rasa.shared.core.slots.UnfeaturizedSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: false
+responses:
+  utter_greet:
+  - text: Hola, soy el asistente de canchas, ¿cómo puedo ayudar?
+  utter_goodbye:
+  - text: hasta luego
+  - text: chao
+  utter_iamabot:
+  - text: Soy un bot.
+  utter_confirminfo:
+  - text: Haré una reserva de la cancha {ref_cancha} a nombre de {nombre_reserva} el {fechatexto} ¿Es correcta esta información?
+  utter_confirmreserva:
+  - text: La cancha {ref_cancha} queda reservada a nombre de {nombre_reserva} para el {fechatexto}
+  utter_ask_nombre_reserva:
+  - text: Por favor escribe a continuación nombre y apellido para realizar la reserva
+  utter_ask_ampm:
+  - text: ¿{hora} am o pm?
+  utter_ask_hora:
+  - text: ¿Para qué hora quieres la reserva?
+  utter_ask_nombre_dia:
+  - text: ¿Para que día quieres la reserva?
+  utter_ask_num_jugadores:
+  - text: ¿Cuántos jugadores? tenemos canchas hasta 18 jugadores.
+  
+  utter_ask_time_aware:
+  - text: Con gusto, ¿para cuándo quieres la reserva?
+  utter_denada:
+  - text: Con gusto.
+  - text: No hay de qué.
+  - text: Gracias a ti.
+  - text: A tus órdenes.
+  - text: Un placer.
+  - text: Lo que necesites.
+  - text: Con mucho gusto.
+  - text: Para servirte.
+actions:
+- validate_reserva_form
+- action_ask_reserva_form_ref_cancha
+forms:
+  reserva_form:
+    ignored_intents:
+    - chitchat
+    required_slots:
+      time_aware:
+      - entity: time
+        type: from_entity
+      ref_cancha:
+      - type: from_text
+      nombre_reserva:
+      - type: from_text
+e2e_actions: []
